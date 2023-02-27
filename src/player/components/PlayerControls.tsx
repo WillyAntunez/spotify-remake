@@ -1,6 +1,11 @@
 
-import LikedIcon from '../../assets/svg/liked.svg';
-import UnLikedIcon from '../../assets/svg/unliked.svg';
+import LikedSvg from '../../assets/svg/liked.svg';
+import UnLikedSvg from '../../assets/svg/unliked.svg';
+import MicrophoneSvg from '../../assets/svg/microphone.svg';
+import PlaylistSvg from '../../assets/svg/playlist.svg';
+import ConnectSvg from '../../assets/svg/connect.svg';
+import VolumeSvg from '../../assets/svg/volume.svg';
+import ExpandSvg from '../../assets/svg/expand.svg';
 
 import './PlayerControls.scss';
 
@@ -36,11 +41,11 @@ export const PlayerControls = () => {
                   { artist }
               </a>
             </div>
-            <button className='playercontrols__like playercontrols__icon cursor--pointer '>
+            <button className='playercontrols__icon '>
               {
                 liked 
-                  ? <LikedIcon className='' />
-                  : <UnLikedIcon className='' />
+                  ? <LikedSvg />
+                  : <UnLikedSvg />
               }
             </button>
         </div>
@@ -50,7 +55,33 @@ export const PlayerControls = () => {
         </div>
 
         <div className="playercontrols__right">
-          
+          <button className='playercontrols__icon playercontrols__icon--expand '>
+              <MicrophoneSvg />
+          </button>
+
+          <button className='playercontrols__icon playercontrols__icon--expand '>
+              <PlaylistSvg />
+          </button>
+
+          <button className='playercontrols__icon playercontrols__icon--expand '>
+              <ConnectSvg />
+          </button>
+
+          <button className='playercontrols__icon '>
+              <VolumeSvg />
+          </button>
+          <div className="progress-bar__container">
+            <div className='progress-bar'>
+                <div className='progress-bar__bar' style={{width: '50%'}}>
+                  <div className="progress-bar__controller">
+
+                  </div>
+                </div>
+            </div>
+          </div>
+          <button className='playercontrols__icon'>
+              <ExpandSvg />
+          </button>
         </div>
         
       </div>

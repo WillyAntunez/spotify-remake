@@ -4,6 +4,8 @@
 
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    height: 100%;
     
     &__container{
         background-color: $background-highlight;
@@ -51,8 +53,57 @@
         }
 
         &:hover{
-            fill: $white
+            fill: $white;
             
+        }
+
+        &--expand {
+            &:hover{
+                transform: scale(1.02);
+            }
+        }
+    }
+
+    &__right {
+        display: flex;
+        align-items: center;
+    }
+
+    .progress-bar {
+        height: 4px;
+        width: 70px;
+        background-color: transparentize($white, 0.7);
+
+        &__container {
+            height: 12px;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                .progress-bar__bar {
+                    background-color: $essential-bright-accent;
+                }
+                .progress-bar__controller {
+                    display: block;
+                }
+            }    
+        }
+
+        &__bar {
+            height: 100%;
+            background-color: $white;
+            position: relative;
+        }
+        
+        &__controller{
+            display: none;
+            width: 12px;
+            height: 12px;
+            background-color: $white;
+            border-radius: 50%;
+            position: absolute;
+            right: -6px;
+            top: -4px;
         }
     }
 
