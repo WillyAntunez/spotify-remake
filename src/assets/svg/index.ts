@@ -1,0 +1,15 @@
+export {default as LikedSvg} from './liked.svg';
+export {default as UnLikedSvg} from './unliked.svg';
+export {default as MicrophoneSvg} from './microphone.svg';
+export {default as PlaylistSvg} from './playlist.svg';
+export {default as ConnectSvg} from './connect.svg';
+export {default as VolumeSvg} from './volume.svg';
+export {default as ExpandSvg} from './expand.svg';
+export {default as PrevSvg} from './prev-song.svg';
+export {default as NextSvg} from './next-song.svg';
+export {default as PlaySvg} from './play.svg';
+export {default as RandomSvg} from './random.svg';
+export {default as RepeatDisabledSvg} from './repeat-disabled.svg';
+export {default as VolumeMutedSvg} from './volume-muted.svg';
+export {default as RepeatOneSvg} from './repeat-one.svg';
+export {default as PauseSvg} from './pause.svg';

@@ -1,16 +1,42 @@
 
-import LikedSvg from '../../assets/svg/liked.svg';
-import UnLikedSvg from '../../assets/svg/unliked.svg';
-import MicrophoneSvg from '../../assets/svg/microphone.svg';
-import PlaylistSvg from '../../assets/svg/playlist.svg';
-import ConnectSvg from '../../assets/svg/connect.svg';
-import VolumeSvg from '../../assets/svg/volume.svg';
-import ExpandSvg from '../../assets/svg/expand.svg';
+// SVG imported as React Components
+import { useMemo } from 'react';
+import {
+  LikedSvg,
+  UnLikedSvg,
+  MicrophoneSvg,
+  PlaylistSvg,
+  ConnectSvg,
+  VolumeSvg,
+  ExpandSvg,
+  PrevSvg,
+  NextSvg,
+  PlaySvg,
+  RandomSvg,
+  RepeatDisabledSvg,
+  VolumeMutedSvg,
+  RepeatOneSvg,
+  PauseSvg,
+} from '../../assets/svg';
 
 import './PlayerControls.scss';
 
+
+const formatMs = (milliseconds: number):string => {
+  let minutes:number = Math.floor(milliseconds / 60000);
+  let seconds:number | string = Math.floor((milliseconds % 60000) / 1000);
+
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+
+  return minutes + ":" + seconds;
+};
+
+
 export const PlayerControls = () => {
 
+  // example objects
   const song =  {
     album: {
       imageUrl: 'https://i.scdn.co/image/ab67616d000048511bd6d088d3d81972af4cb81d',
@@ -18,15 +44,33 @@ export const PlayerControls = () => {
     },
     name: 'Cool kids',
     artist: 'Harmless',
-    liked: false,
+    liked: true,
+  }
+  const playerBarInfo = {
+    timeLapsed: 10000,
+    totalTime: 60000,
+    isPlaying: true,
+    isRandomActived: true,
+    areLyricsOpen: true,
+    isQueueOpen: false,
+    isMuted: false,
+    repeatMode: 'DISABLED', // ALL, ONE, 'DISABLED'
+    volume: 37,
   }
 
   const { album, name, artist, liked } = song;
+  const { isPlaying, isQueueOpen, areLyricsOpen, isMuted, isRandomActived, repeatMode, timeLapsed, totalTime, volume } = playerBarInfo;
+
+
+  const lapsedTimeFormated:string = useMemo<string>( () => formatMs(timeLapsed), [ timeLapsed ]); 
+  const totalTimeFormated:string = useMemo<string>( () => formatMs(totalTime), [ timeLapsed ]); 
+  const lapsedTimePercent:number = useMemo<number>( () =>  (timeLapsed / totalTime) * 100, [timeLapsed, totalTime]);
 
   return (
     <div className="playercontrols__container">
       <div className='playercontrols'>
 
+        {/* LEFT SIDE */}
         <div className="playercontrols__left">
             <div className="playercontrols__img">
               <img src={ album.imageUrl } alt={ album.name } />
@@ -41,7 +85,7 @@ export const PlayerControls = () => {
                   { artist }
               </a>
             </div>
-            <button className='playercontrols__icon '>
+            <button className={`playercontrols__icon ${liked ? 'playercontrols__icon--liked': ''}`}>
               {
                 liked 
                   ? <LikedSvg />
@@ -50,35 +94,94 @@ export const PlayerControls = () => {
             </button>
         </div>
 
+        {/* CENTER */}
         <div className="playercontrols__center">
-            
+              <div className='playercontrols__song-buttons'>
+                <button className={`playercontrols__icon ${ isRandomActived ? 'playercontrols__icon--active': '' } `}>
+                    <RandomSvg />
+                </button>
+
+                <button className='playercontrols__icon  '>
+                    <PrevSvg />
+                </button>
+                
+                <button className='playercontrols__icon playercontrols__icon--playpause '>
+                  {
+                    isPlaying 
+                      ? ( <PauseSvg /> )
+                      : ( <PlaySvg /> )
+                  }
+                </button>
+                
+                <button className='playercontrols__icon  '>
+                    <NextSvg />
+                </button>
+
+                <button className={`playercontrols__icon ${ repeatMode !== 'DISABLED' ? 'playercontrols__icon--active': '' } `}>
+                    {
+                      repeatMode !== 'ONE'
+                        ? ( <RepeatDisabledSvg /> )
+                        : ( <RepeatOneSvg /> )
+                    }
+                </button>
+              </div>
+              
+              <div className="playercontrols__song-progress">
+                <div className='text text--small'>
+                  { lapsedTimeFormated }
+                </div>
+
+                <div className="progress-bar__container">
+                  <div className='progress-bar'>
+                      <div className='progress-bar__bar' style={{width: `${lapsedTimePercent}%`}}>
+                        <div className="progress-bar__controller">
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                <div className='text text--small'>
+                  { totalTimeFormated }
+                </div>
+              </div>
         </div>
 
+        {/* RIGHT */}
         <div className="playercontrols__right">
-          <button className='playercontrols__icon playercontrols__icon--expand '>
+          <button 
+            className={`playercontrols__icon playercontrols__icon--expand ${ areLyricsOpen ? 'playercontrols__icon--active': '' }`}
+            >
               <MicrophoneSvg />
           </button>
 
-          <button className='playercontrols__icon playercontrols__icon--expand '>
+          <button 
+            className={`playercontrols__icon  playercontrols__icon--expand ${ isQueueOpen ? 'playercontrols__icon--active': ''  }`}
+            >
               <PlaylistSvg />
           </button>
 
-          <button className='playercontrols__icon playercontrols__icon--expand '>
+          <button 
+            className={`playercontrols__icon playercontrols__icon--expand`}
+            >
               <ConnectSvg />
           </button>
 
           <button className='playercontrols__icon '>
-              <VolumeSvg />
+            { isMuted
+              ? (<VolumeMutedSvg />)
+              : (<VolumeSvg />)
+            }
           </button>
-          <div className="progress-bar__container">
-            <div className='progress-bar'>
-                <div className='progress-bar__bar' style={{width: '50%'}}>
-                  <div className="progress-bar__controller">
 
+          <div className="progress-bar__container--volume">
+            <div className='progress-bar progress-bar'>
+                <div className='progress-bar__bar' style={{width: `${volume}%`}}>
+                  <div className="progress-bar__controller">
                   </div>
                 </div>
             </div>
           </div>
+
           <button className='playercontrols__icon'>
               <ExpandSvg />
           </button>
