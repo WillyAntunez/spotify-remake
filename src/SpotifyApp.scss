@@ -1,4 +1,6 @@
-body, html, #root {
+@import './utils/scss/globals';
+
+body, html, #root, main {
     width: 100%;
     height: 100%;
 }
@@ -9,3 +11,11 @@ body, html, #root {
     padding: 0;
 }
 
+body {
+    font-family: $font-family-montserrat;
+    background-color: $background-base;
+    color: $text-subdued;
+    font-size: $font-size-regular;
+
+    min-width: 768px;
+};
