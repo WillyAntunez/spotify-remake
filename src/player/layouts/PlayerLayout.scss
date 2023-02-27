@@ -1,0 +1,12 @@
+@import '../../utils/scss/globals';
+
+main {
+    display: grid;
+    grid-template-columns: $playeraside-width auto;
+    grid-template-rows: auto $playercontrols-height;
+
+    grid-template-areas: 
+        'aside content'
+        'player player'
+    ;
+}

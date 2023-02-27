@@ -1,0 +1,21 @@
+@import './utils/scss/globals';
+
+body, html, #root, main {
+    width: 100%;
+    height: 100%;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $font-family-montserrat;
+    background-color: $background-base;
+    color: $text-subdued;
+    font-size: $font-size-regular;
+
+    min-width: 768px;
+};

@@ -1,0 +1,50 @@
+@import './variables';
+@import './mixins';
+
+.text {
+    font-size: $font-size-regular;
+    font-weight: $font-weight-regular;
+    color: $text-subdued;
+    text-decoration: none;
+
+    &--small {
+        font-size: $font-size-small;
+    }
+
+    &--bold {
+        font-weight: $font-weight-bold;
+    }
+
+    &--white {
+        color: $white;
+    }   
+}
+
+.hover {
+    &--underline {
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+    &--white {
+        &:hover {
+            color: $white;
+            fill: $white;
+        }
+    }
+}
+
+.cursor {
+    &--pointer {
+        cursor: pointer;
+    }
+}
+
+.flex {
+    display: flex;
+    
+    &--column{
+        flex-direction: column;
+    }
+}

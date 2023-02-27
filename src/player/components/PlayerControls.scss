@@ -1,0 +1,187 @@
+@import '../../utils/scss/globals';
+
+.playercontrols {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    
+    &__container{
+        background-color: $background-highlight;
+        border: 1px solid $gray;
+        grid-area: player;
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    &__left{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 30%;
+        min-width: 180px;
+    }
+
+    &__img {
+        width: 56px;
+        height: 56px;
+        background-color: red;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__song-info {
+        padding: 0 14px;
+        width: 106px;
+        max-width: 215.797px;
+        gap: 3px;
+    }
+
+    &__icon {
+        fill: currentColor;
+        color: $text-subdued;
+    
+        background-color: unset;
+        border: none;
+        width: 2rem;
+        height: 2rem;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        &:hover{
+            fill: $white;
+        }
+
+        &--active{
+            fill: $text-positive;
+            position: relative;
+            &:after {
+                content: ' ';
+                display: block;
+                width: 4px;
+                height: 4px;
+                background-color: $text-positive;
+                position: absolute;
+                border-radius: 50%;
+                bottom: 0;
+            }
+            
+            &:hover{
+                fill: $text-positive;
+            }
+        }
+
+        &--expand {
+            &:hover{
+                transform: scale(1.02);
+            }
+        }
+
+        &--playpause {
+            background-color: $white;
+            border-radius: 50%;
+            fill: $black;
+            margin: 0 8px;
+
+            &:hover {
+                fill: inherit;
+                transform: scale(1.06);
+            }
+        }
+
+        &--liked {
+            fill: $text-positive;
+            &:hover {
+                fill: $text-positive;
+            }
+        }
+    }
+
+    &__center{
+        display: flex;
+        width: 40%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        max-width: 722px;
+    }
+
+    &__song-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    &__song-progress{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    &__right {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 30%;
+        min-width: 180px;
+    }
+};
+
+.progress-bar {
+    height: 4px;
+    background-color: transparentize($white, 0.7);
+    border-radius: 2px;
+    width: 100%;
+
+    &__container {
+        height: 12px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        &--volume {
+            width: 93px;
+        }
+
+        &:hover, &--volume:hover {
+            .progress-bar__bar {
+                background-color: $essential-bright-accent;
+            }
+            .progress-bar__controller {
+                display: block;
+            }
+        }    
+    }
+
+    &__bar {
+        height: 100%;
+        background-color: $white;
+        position: relative;
+        border-radius: 2px;
+    }
+    
+    &__controller{
+        display: none;
+        width: 12px;
+        height: 12px;
+        background-color: $white;
+        border-radius: 50%;
+        position: absolute;
+        right: -6px;
+        top: -4px;
+    }
+}

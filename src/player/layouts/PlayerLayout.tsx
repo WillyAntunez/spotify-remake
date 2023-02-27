@@ -1,4 +1,7 @@
 import { ReactNode } from 'react'
+import { PlayerAside, PlayerControls } from '../components';
+
+import './PlayerLayout.scss';
 
 interface Props {
     children: ReactNode;
@@ -6,9 +9,12 @@ interface Props {
 
 export const PlayerLayout = ({ children }:Props) => {
   return (
-    <div>
-        <h1>PlayerLayout</h1>
-        { children }
-    </div>
+    <main>
+        <PlayerAside />
+        <PlayerControls />
+        <div className='content'>
+          { children }
+        </div>
+    </main>
   )
 }
