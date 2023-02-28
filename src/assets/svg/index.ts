@@ -13,3 +13,15 @@ export {default as RepeatDisabledSvg} from './repeat-disabled.svg';
 export {default as VolumeMutedSvg} from './volume-muted.svg';
 export {default as RepeatOneSvg} from './repeat-one.svg';
 export {default as PauseSvg} from './pause.svg';
+
+export {default as LogoSvg} from './spotify-logo.svg';
+export {default as HomeSvg} from './home.svg';
+export {default as HomeActiveSvg} from './home-active.svg';
+export {default as SearchSvg} from './search.svg';
+export {default as SearchActive} from './search-active.svg';
+export {default as LibrarySvg} from './library.svg';
+export {default as LibraryActiveSvg} from './library-active.svg';
+export {default as CreatedSvg} from './create.svg';
+export {default as HeartSvg} from './heart.svg';
+export {default as SavedSvg} from './saved.svg';
+export {default as DownloadSvg} from './download.svg';
