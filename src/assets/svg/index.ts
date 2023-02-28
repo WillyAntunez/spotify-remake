@@ -21,7 +21,7 @@ export {default as SearchSvg} from './search.svg';
 export {default as SearchActive} from './search-active.svg';
 export {default as LibrarySvg} from './library.svg';
 export {default as LibraryActiveSvg} from './library-active.svg';
-export {default as CreatedSvg} from './create.svg';
+export {default as CreateSvg} from './create.svg';
 export {default as HeartSvg} from './heart.svg';
 export {default as SavedSvg} from './saved.svg';
 export {default as DownloadSvg} from './download.svg';
