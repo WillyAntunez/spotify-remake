@@ -72,7 +72,9 @@ export const PlayerAside = () => {
           <nav className='playlists'> 
             
               <li className='playeraside__li'>
-                <a href="#" className='playlists__playlist'>Radio de Avici</a>
+                <a href="#" className='playlists__playlist'>
+                  <span>Radio de Avici</span>
+                </a>
               </li>
 
               <li className='playeraside__li'>
@@ -82,7 +84,14 @@ export const PlayerAside = () => {
               <li className='playeraside__li'>
                 <a href="#" className='playlists__playlist'>Top Hits de los 80</a>
               </li>
-      
+
+              {/* TODO: Scroll bar personalizado 
+                Ideas: 
+                * Usar un ref para el elemento que tiene el scroll, para hacer calculos de tamaño y posicion
+                  o si aparece o no aparece
+                * El componente <ScrollBar ref={ scrollElementRef } /> debe de ir dentro del elemento scrolleable
+              */}
+              
           </nav>
         </div>
       </div>
