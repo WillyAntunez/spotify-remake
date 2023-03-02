@@ -9,6 +9,7 @@ export default defineConfig({
     exportAsDefault: true,
     svgrOptions: {
       icon: true,
+      dimensions: false
     },
   })],
 })

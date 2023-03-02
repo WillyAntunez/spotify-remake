@@ -25,12 +25,12 @@ interface PlayerAsideNavItemProps {
 }
 
 const PlayerAsideNavItem = ({ SvgComponent, text, url, iconModifier }:PlayerAsideNavItemProps):JSX.Element => {
-  const modifier:string = useMemo<string>( () => (iconModifier ? `playerAside__icon--${ iconModifier }` : '') , [])
+  const modifier:string = useMemo<string>( () => (iconModifier ? `playeraside__icon--${ iconModifier }` : '') , [])
 
   return (
     <li className='playeraside__li'>
       <a href={url} className='playeraside__navitem'>
-        <div className={`playerAside__icon ${modifier}`}>
+        <div className={`playeraside__icon ${modifier}`}>
           <SvgComponent />
         </div>
         <span>{text}</span>
@@ -57,11 +57,11 @@ export const PlayerAside = () => {
         </ul>
 
         <ul className='playeraside__ul'>
-          <PlayerAsideNavItem SvgComponent={ CreateSvg } text='Crear playlist' url='#' />
+          <PlayerAsideNavItem SvgComponent={ CreateSvg } text='Crear playlist' url='#' iconModifier='create' />
 
-          <PlayerAsideNavItem SvgComponent={ HeartSvg } text='Buscar' url='#' />
+          <PlayerAsideNavItem SvgComponent={ HeartSvg } text='Tus me gusta' url='#' iconModifier='heart' />
 
-          <PlayerAsideNavItem SvgComponent={ SavedSvg } text='Tu biblioteca' url='#' />
+          <PlayerAsideNavItem SvgComponent={ SavedSvg } text='Tus episodios' url='#' iconModifier='saved' />
         </ul>
       </nav>
 
@@ -70,23 +70,19 @@ export const PlayerAside = () => {
       <div className="playeraside__playlists"> {/* Fixed height */}
         <div className="playlists__container"> {/* scrollable */}
           <nav className='playlists'> 
-            <ul className='playeraside__ul'>
+            
               <li className='playeraside__li'>
                 <a href="#" className='playlists__playlist'>Radio de Avici</a>
               </li>
-            </ul>
-            
-            <ul className='playeraside__ul'>
+
               <li className='playeraside__li'>
                 <a href="#" className='playlists__playlist'>Exitos del rock</a>
               </li>
-            </ul>
 
-            <ul className='playeraside__ul'>
               <li className='playeraside__li'>
                 <a href="#" className='playlists__playlist'>Top Hits de los 80</a>
               </li>
-            </ul>
+      
           </nav>
         </div>
       </div>
