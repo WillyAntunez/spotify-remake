@@ -18,7 +18,7 @@ export {default as LogoSvg} from './spotify-logo.svg';
 export {default as HomeSvg} from './home.svg';
 export {default as HomeActiveSvg} from './home-active.svg';
 export {default as SearchSvg} from './search.svg';
-export {default as SearchActive} from './search-active.svg';
+export {default as SearchActiveSvg} from './search-active.svg';
 export {default as LibrarySvg} from './library.svg';
 export {default as LibraryActiveSvg} from './library-active.svg';
 export {default as CreateSvg} from './create.svg';

@@ -1,12 +1,13 @@
 
 import { useMemo } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import {
   LogoSvg,
   HomeSvg,
   HomeActiveSvg,
   SearchSvg,
-  SearchActive,
+  SearchActiveSvg,
   LibrarySvg,
   LibraryActiveSvg,
   CreateSvg,
@@ -19,27 +20,37 @@ import './PlayerAside.scss';
 
 interface PlayerAsideNavItemProps {
   SvgComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  ActiveSvgComponent?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   text: string;
   url: string;
   iconModifier?: string;
 }
 
-const PlayerAsideNavItem = ({ SvgComponent, text, url, iconModifier }:PlayerAsideNavItemProps):JSX.Element => {
+const PlayerAsideNavItem = ({ SvgComponent, text, url, iconModifier, ActiveSvgComponent }:PlayerAsideNavItemProps):JSX.Element => {
   const modifier:string = useMemo<string>( () => (iconModifier ? `playeraside__icon--${ iconModifier }` : '') , [])
+
+  const location = useLocation();
+
+  const isActive = location.pathname === url
 
   return (
     <li className='playeraside__li'>
-      <a href={url} className='playeraside__navitem'>
+      <NavLink to={url} className={({ isActive }) => `playeraside__navitem ${isActive? 'playeraside__navitem--active': ''}`} >
         <div className={`playeraside__icon ${modifier}`}>
-          <SvgComponent />
+          {ActiveSvgComponent && isActive 
+            ? <ActiveSvgComponent />
+            : <SvgComponent />
+          }
         </div>
         <span>{text}</span>
-      </a>
+      </NavLink>
     </li>
   )
 }
 
 export const PlayerAside = () => {
+  
+
   return (
     <aside className='playeraside'>
 
@@ -49,19 +60,34 @@ export const PlayerAside = () => {
 
       <nav className='playeraside__nav'>
         <ul className='playeraside__ul'>
-          <PlayerAsideNavItem SvgComponent={ HomeSvg } text='Inicio' url='#' />
+          <PlayerAsideNavItem 
+            SvgComponent={ HomeSvg } 
+            ActiveSvgComponent={ HomeActiveSvg }
+            text='Inicio' 
+            url='/' 
+          />
 
-          <PlayerAsideNavItem SvgComponent={ SearchSvg } text='Buscar' url='#' />
+          <PlayerAsideNavItem 
+            SvgComponent={ SearchSvg } 
+            ActiveSvgComponent={SearchActiveSvg}
+            text='Buscar' 
+            url='/search' 
+          />
 
-          <PlayerAsideNavItem SvgComponent={ LibrarySvg } text='Tu biblioteca' url='#' />
+          <PlayerAsideNavItem 
+            SvgComponent={ LibrarySvg } 
+            ActiveSvgComponent={ LibraryActiveSvg }
+            text='Tu biblioteca' 
+            url='/collection/playlists' 
+          />
         </ul>
 
         <ul className='playeraside__ul'>
-          <PlayerAsideNavItem SvgComponent={ CreateSvg } text='Crear playlist' url='#' iconModifier='create' />
+          <PlayerAsideNavItem SvgComponent={ CreateSvg } text='Crear playlist' url='/playlist/create' iconModifier='create' />
 
-          <PlayerAsideNavItem SvgComponent={ HeartSvg } text='Tus me gusta' url='#' iconModifier='heart' />
+          <PlayerAsideNavItem SvgComponent={ HeartSvg } text='Tus me gusta' url='/collection/tracks' iconModifier='heart' />
 
-          <PlayerAsideNavItem SvgComponent={ SavedSvg } text='Tus episodios' url='#' iconModifier='saved' />
+          <PlayerAsideNavItem SvgComponent={ SavedSvg } text='Tus episodios' url='/collection/episodes' iconModifier='saved' />
         </ul>
       </nav>
 

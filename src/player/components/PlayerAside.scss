@@ -58,11 +58,27 @@
         gap: 16px;
         height: 40px;
 
+        transition: all .4s ease;
+
+        &--active, &:hover{
+            color: $white;
+
+            .playeraside__icon{
+                &--saved {
+                    opacity: 1;
+                }
+
+                &--heart {
+                    background: linear-gradient(135deg, rgba(69, 10, 245, 100%), rgba(196, 239, 217, 100%));
+                }
+            }
+        }
     }
 
     &__icon {
         width: 24px;
         height: 24px;
+
         svg {
             fill: currentColor;
         }
@@ -86,7 +102,7 @@
             background: linear-gradient(135deg, rgba(69, 10, 245, 70%), rgba(196, 239, 217, 70%));
             width: 24px;
             height: 24px;
-            color: $text-subdued;
+            color: inherit;
             border-radius: 2px;
             display: flex;
             align-items: center;
@@ -94,6 +110,7 @@
             
             svg{
                 width: 12px;
+                fill: currentColor;
             }
         }
 
@@ -107,6 +124,8 @@
             align-items: center;
             justify-content: center;
             opacity: 0.7;
+
+            transition: all .5s ease ;
             
             svg{
                 width: 16px;
