@@ -31,3 +31,4 @@ export { default as NextPageSvg } from './next-page.svg';
 export { default as PrevPageSvg } from './prev-page.svg';
 export { default as TriangleBottomSvg } from './triangle-bottom.svg';
 export { default as TriangleUpSvg } from './triangle-up.svg';
+export { default as CloseXSvg } from './close-x.svg';
