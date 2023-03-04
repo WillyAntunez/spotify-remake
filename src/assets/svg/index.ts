@@ -25,3 +25,9 @@ export {default as CreateSvg} from './create.svg';
 export {default as HeartSvg} from './heart.svg';
 export {default as SavedSvg} from './saved.svg';
 export {default as DownloadSvg} from './download.svg';
+
+export { default as ExternalSvg } from './external.svg';
+export { default as NextPageSvg } from './next-page.svg';
+export { default as PrevPageSvg } from './prev-page.svg';
+export { default as TriangleBottomSvg } from './triangle-bottom.svg';
+export { default as TriangleUpSvg } from './triangle-up.svg';
