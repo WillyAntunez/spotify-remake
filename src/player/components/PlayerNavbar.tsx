@@ -19,8 +19,9 @@ import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 
 export const PlayerNavbar = () => {
 
-    const [menuOpen, setMenuOpen] = useState(false)
-    const menuRef = useRef<HTMLDivElement>( null )
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>( null );
+    const menuButtonRef = useRef<HTMLButtonElement>( null );
 
     const userName: string = 'Willy Antunez';
     const currentColor = [72, 32, 176];
@@ -34,8 +35,12 @@ export const PlayerNavbar = () => {
         setMenuOpen( !menuOpen );
     };
 
-    const onCloseMenu = ():void => {
-        setMenuOpen(false);
+    const onCloseMenu = (event?:Event):void => {
+        const target = event?.target as Node; 
+
+        if (menuButtonRef.current && !menuButtonRef.current.contains(target)){
+            setMenuOpen(false);
+        }
     };
 
     useOutsideAlerter( menuRef, onCloseMenu );
@@ -72,6 +77,7 @@ export const PlayerNavbar = () => {
                     <button 
                         className={`usermenu__button ${ menuOpen ? 'usermenu__button--active' : '' }`}
                         onClick={ onToggleMenu }
+                        ref={ menuButtonRef }
                     >
                         <div className="usermenu__photo">
                             <img src={userPhoto} alt={userName} />
@@ -88,7 +94,7 @@ export const PlayerNavbar = () => {
                     {
                         menuOpen
                             ? (
-                                <div className='usermenu__menu' ref={ menuRef } onClick={ onCloseMenu }>
+                                <div className='usermenu__menu' ref={ menuRef } onClick={ () => onCloseMenu() }>
                                     <ul className='usermenu__ul'>
                                         <li className='usermenu__item'>
                                             <NavLink to='#' target='_blank' className='usermenu__link'>
