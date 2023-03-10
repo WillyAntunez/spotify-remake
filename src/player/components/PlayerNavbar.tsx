@@ -11,31 +11,43 @@ import {
     TriangleUpSvg,
 } from '../../assets/svg';
 
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import userPhoto from '../../assets/img/user-image.jpeg';
-import { useMemo } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 
 export const PlayerNavbar = () => {
 
-    const location = useLocation();
+    const [menuOpen, setMenuOpen] = useState(false)
+    const menuRef = useRef<HTMLDivElement>( null )
 
-    const userName:string = 'Willy Antunez';
+    const userName: string = 'Willy Antunez';
     const currentColor = [72, 32, 176];
 
-    const [ currentRed, currentGreen, currentBlue ] = currentColor; 
+    const [currentRed, currentGreen, currentBlue] = currentColor;
     const navOpacity = 0; // 0 to 100
 
-    const navBackgroundRgba = useMemo<string>(() => `rgba(${currentRed}, ${currentGreen}, ${currentBlue}, ${navOpacity}%)`, [])
+    const navBackgroundRgba = useMemo<string>(() => `rgba(${currentRed}, ${currentGreen}, ${currentBlue}, ${navOpacity}%)`, []);
+
+    const onToggleMenu = ():void => {
+        setMenuOpen( !menuOpen );
+    };
+
+    const onCloseMenu = ():void => {
+        setMenuOpen(false);
+    };
+
+    useOutsideAlerter( menuRef, onCloseMenu );
 
     return (
-        <header className='playernav' style={ { backgroundColor: navBackgroundRgba } }>
+        <header className='playernav' style={{ backgroundColor: navBackgroundRgba }}>
 
             <div className='playernav__right'>
                 <div className="playernav__arrows">
                     <button className='playernav__navbtn playernav__navbtn--active'>
                         <PrevPageSvg />
-                    </button> 
+                    </button>
                     <button className='playernav__navbtn '>
                         <NextPageSvg />
                     </button>
@@ -57,15 +69,66 @@ export const PlayerNavbar = () => {
 
             <div className="playernav__left">
                 <div className="usermenu">
-                    <button className="usermenu__button">
+                    <button 
+                        className={`usermenu__button ${ menuOpen ? 'usermenu__button--active' : '' }`}
+                        onClick={ onToggleMenu }
+                    >
                         <div className="usermenu__photo">
-                            <img src={ userPhoto } alt={userName}  />
+                            <img src={userPhoto} alt={userName} />
                         </div>
-                        <span className='usermenu__name'>{ userName }</span>
+                        <span className='usermenu__name'>{userName}</span>
                         <div className='usermenu__icon'>
-                            <TriangleBottomSvg />
+                            {
+                                menuOpen 
+                                ? ( <TriangleUpSvg /> )
+                                : ( <TriangleBottomSvg /> )
+                            }
                         </div>
                     </button>
+                    {
+                        menuOpen
+                            ? (
+                                <div className='usermenu__menu' ref={ menuRef } onClick={ onCloseMenu }>
+                                    <ul className='usermenu__ul'>
+                                        <li className='usermenu__item'>
+                                            <NavLink to='#' target='_blank' className='usermenu__link'>
+                                                <span>Cuenta</span>
+                                                <ExternalSvg />
+                                            </NavLink>
+                                        </li>
+                                        <li className='usermenu__item'>
+                                            <NavLink to='#' className='usermenu__link'>
+                                                <span>Perfil</span>
+                                            </NavLink>
+                                        </li>
+                                        <li className='usermenu__item'>
+                                            <NavLink to='#' target='_blank' className='usermenu__link'>
+                                                <span>Ayuda</span>
+                                                <ExternalSvg />
+                                            </NavLink>
+                                        </li>
+                                        <li className='usermenu__item'>
+                                            <NavLink to='#' target='_blank' className='usermenu__link'>
+                                                <span>Descargar</span>
+                                                <ExternalSvg />
+                                            </NavLink>
+                                        </li>
+                                        <li className='usermenu__item usermenu__item--bottom-border'>
+                                            <NavLink to='#' className='usermenu__link'>
+                                                <span>Preferencias</span>
+                                            </NavLink>
+                                        </li>
+                                        <li className='usermenu__item'>
+                                            <NavLink to='#' className='usermenu__link'>
+                                                <span>Cerrar sesión</span>
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )
+                            : null
+                    }
+
                 </div>
             </div>
 

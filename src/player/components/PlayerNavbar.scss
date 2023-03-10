@@ -27,9 +27,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: not-allowed;
 
         &--active{
             opacity: 1;
+            cursor: pointer;
         }
 
         svg {
@@ -41,6 +43,8 @@
 }
 
 .usermenu{
+
+    position: relative;
     
     &__button{
         display: flex;
@@ -53,6 +57,7 @@
         border-radius: 23px;
         padding: 2px;
         border: none;
+        cursor: pointer;
 
         &:hover, &--active{
             background-color: $gray;
@@ -81,5 +86,55 @@
     &__name {
         font-weight: $font-weight-bold;
     }
+
+    &__menu {
+        width: 188px;
+        background-color: $gray;
+        position: absolute;
+        right: 0;
+        border-radius: 4px;
+        margin-top: 8px;
+    }
+
+    &__ul {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        list-style: none;
+        padding: 4px;
+    }
+
+    &__item{
+        height: 40px;
+
+        &--bottom-border {
+            border-bottom: 1px solid  lighten($color: $gray, $amount: 10);
+        }
+    }
+
+    &__link {
+        color: $white;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        justify-content: space-between;
+        padding: 12px 8px 12px 12px;
+        text-decoration: none;
+
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        &:hover{
+            background-color: $essential-subdued;
+        }
+
+    }
+
+
+    /* TODO: link hover y terminar menu */
 
 }
