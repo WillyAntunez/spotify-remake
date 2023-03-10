@@ -19,12 +19,17 @@ import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 
 export const PlayerNavbar = () => {
 
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const [inputText, setInputText] = useState<string>('');
+
     const menuRef = useRef<HTMLDivElement>( null );
     const menuButtonRef = useRef<HTMLButtonElement>( null );
+    const searchInputRef = useRef<HTMLInputElement>(null);
+
+    const location = useLocation();
 
     const userName: string = 'Willy Antunez';
-    const currentColor = [72, 32, 176];
+    const currentColor: number[] = [72, 32, 176];
 
     const [currentRed, currentGreen, currentBlue] = currentColor;
     const navOpacity = 0; // 0 to 100
@@ -43,12 +48,26 @@ export const PlayerNavbar = () => {
         }
     };
 
+    const onInputFocus = ():void => {
+        searchInputRef.current?.focus();
+    }
+    
+    const onInputChange = ({target}:React.ChangeEvent<HTMLInputElement>):void => {
+        setInputText(target.value);
+    }
+
+    const onClearInput = ():void => {
+        setInputText('');
+    }
+    
     useOutsideAlerter( menuRef, onCloseMenu );
+
+    // TODO: Use history to navigate backward and forward
 
     return (
         <header className='playernav' style={{ backgroundColor: navBackgroundRgba }}>
 
-            <div className='playernav__right'>
+            <div className='playernav__left'>
                 <div className="playernav__arrows">
                     <button className='playernav__navbtn playernav__navbtn--active'>
                         <PrevPageSvg />
@@ -57,22 +76,33 @@ export const PlayerNavbar = () => {
                         <NextPageSvg />
                     </button>
                     <div className='playernav__context'>
-                        {/* {
+                        {
                             location.pathname === '/search'
                             ? (
-                                <div className="playernav__search">
-                                    <SearchSvg />
-                                    <input type="text" placeholder='¿Qué quieres escuchar?' />
-                                    <CloseXSvg />
+                                <div className="playernav__search" onClick={ onInputFocus }>
+                                    <SearchSvg className='playernav__search-icon' />
+                                    <input 
+                                        type="text" 
+                                        placeholder='¿Qué quieres escuchar?' 
+                                        className='playernav__search-input'
+                                        onChange={ onInputChange }
+                                        value={ inputText }
+                                        ref={ searchInputRef }
+                                        />
+                                    {
+                                        inputText.length > 0 
+                                        ? ( <CloseXSvg className='playernav__x-icon' onClick={ onClearInput } /> )
+                                        : null
+                                    }
                                 </div>
                             )
                             : null
-                        } */}
+                        }
                     </div>
                 </div>
             </div>
 
-            <div className="playernav__left">
+            <div className="playernav__right">
                 <div className="usermenu">
                     <button 
                         className={`usermenu__button ${ menuOpen ? 'usermenu__button--active' : '' }`}
