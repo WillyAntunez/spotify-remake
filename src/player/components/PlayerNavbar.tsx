@@ -1,5 +1,8 @@
+import { useMemo, useRef, useState } from 'react';
 
-import './PlayerNavbar.scss';
+import {  NavLink, useLocation, useNavigate, } from 'react-router-dom';
+
+import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 
 import {
     CloseXSvg,
@@ -11,13 +14,14 @@ import {
     TriangleUpSvg,
 } from '../../assets/svg';
 
-import { NavLink, useLocation } from 'react-router-dom';
-
 import userPhoto from '../../assets/img/user-image.jpeg';
-import { useMemo, useRef, useState } from 'react';
-import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
+import './PlayerNavbar.scss';
+import { useHistoryNavigation } from '../../hooks/useHistoryNavigation';
+
 
 export const PlayerNavbar = () => {
+
+    const { nextPageExists, prevPageExists, navigateBackward, navigateForward } = useHistoryNavigation();
 
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     const [inputText, setInputText] = useState<string>('');
@@ -62,17 +66,23 @@ export const PlayerNavbar = () => {
     
     useOutsideAlerter( menuRef, onCloseMenu );
 
-    // TODO: Use history to navigate backward and forward
+    
 
     return (
         <header className='playernav' style={{ backgroundColor: navBackgroundRgba }}>
 
             <div className='playernav__left'>
                 <div className="playernav__arrows">
-                    <button className='playernav__navbtn playernav__navbtn--active'>
+                    <button 
+                        className={`playernav__navbtn ${prevPageExists ? 'playernav__navbtn--active' : ''  }`}
+                        onClick={ navigateBackward }
+                        >
                         <PrevPageSvg />
                     </button>
-                    <button className='playernav__navbtn '>
+                    <button 
+                        className={`playernav__navbtn ${nextPageExists ? 'playernav__navbtn--active' : ''  }`}
+                        onClick={ navigateForward }
+                        >
                         <NextPageSvg />
                     </button>
                     <div className='playernav__context'>
