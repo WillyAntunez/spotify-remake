@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { PlayerAside, PlayerControls } from '../components';
+import { PlayerAside, PlayerControls, PlayerNavbar } from '../components';
 
 import './PlayerLayout.scss';
 
@@ -9,11 +9,15 @@ interface Props {
 
 export const PlayerLayout = ({ children }:Props) => {
   return (
-    <main>
+    <main className='player'>
         <PlayerAside />
         <PlayerControls />
-        <div className='content'>
-          { children }
+        
+        <div className='player__container'>
+          <PlayerNavbar />
+          <div className="player__view">
+            { children }
+          </div>
         </div>
     </main>
   )

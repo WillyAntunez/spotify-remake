@@ -1,12 +1,11 @@
 import { Route, Routes } from "react-router-dom"
 
-import { PlayerLayout, Search, NotImplemented, PlayerNavbar } from "../";
+import { PlayerLayout, Search, NotImplemented } from "../";
 
 export const PlayerRoutes = () => {
   return (
     <>
       <PlayerLayout>
-          <PlayerNavbar />
           <Routes>
               <Route path="/search" element={<Search />} />
               <Route path="/*" element={<NotImplemented />} />
