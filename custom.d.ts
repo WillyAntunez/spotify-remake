@@ -6,3 +6,10 @@ declare module '*.svg' {
   >
   export default ReactComponent
 }
+
+declare module '*.jpg';
+
+declare module '*.jpeg' {
+  const path: string;
+  export default path;
+};

@@ -1,0 +1,178 @@
+@import '../../utils/scss/globals';
+
+.playernav{
+    height: $navbar-height;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+
+    &__arrows{
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+
+    &__navbtn{
+        width: 32px;
+        height: 32px;
+        color: $white;
+        background-color: $black;
+        border-radius: 50%;
+        opacity: .5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: not-allowed;
+        border: none;
+
+        &--active{
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+    }
+
+    &__left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__search {
+        height: 40px;
+        width: 364px;
+        background-color: $white;
+        
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-content: center;
+        border-radius: 500px;
+        font-weight: $font-weight-regular;
+        font-size: $font-size-regular;
+        padding: 16px 14px;
+
+        cursor: text;
+        
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    &__search-icon{
+        margin-right: 8px;
+    }
+
+    &__x-icon{
+        cursor: default;
+    }
+
+    &__search-input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+    }
+
+}
+
+.usermenu{
+
+    position: relative;
+    
+    &__button{
+        display: flex;
+        background-color: rgba(0,0,0, 0.7);
+        flex-direction: row;
+        align-items: center;
+        color: $white;
+        height: 32px;
+        gap: 8px;
+        border-radius: 23px;
+        padding: 2px;
+        border: none;
+        cursor: pointer;
+
+        &:hover, &--active{
+            background-color: $gray;
+        }
+    }
+
+    &__photo{
+        width: 28px;
+        height: 28px;
+        img{
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+        svg{
+            fill: currentColor;
+        }
+    }
+
+    &__name {
+        font-weight: $font-weight-bold;
+    }
+
+    &__menu {
+        width: 188px;
+        background-color: $gray;
+        position: absolute;
+        right: 0;
+        border-radius: 4px;
+        margin-top: 8px;
+    }
+
+    &__ul {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        list-style: none;
+        padding: 4px;
+    }
+
+    &__item{
+        height: 40px;
+
+        &--bottom-border {
+            border-bottom: 1px solid  lighten($color: $gray, $amount: 10);
+        }
+    }
+
+    &__link {
+        color: $white;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        justify-content: space-between;
+        padding: 12px 8px 12px 12px;
+        text-decoration: none;
+
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        &:hover{
+            background-color: $essential-subdued;
+        }
+
+    }
+
+}
