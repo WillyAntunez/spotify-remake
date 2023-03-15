@@ -14,7 +14,7 @@ const initialState: PlayerState = {
     playerMode: 'PREVIEW'
 }
 
-export const playerSlice = createSlice({
+const playerSlice = createSlice({
     name: 'player',
     initialState,
     reducers: {
@@ -22,4 +22,8 @@ export const playerSlice = createSlice({
     }
 });
 
-export const {} = playerSlice.actions;
+const {} = playerSlice.actions;
+
+export {
+    playerSlice,
+}
