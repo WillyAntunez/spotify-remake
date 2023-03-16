@@ -5,13 +5,15 @@ import { AxiosError } from "axios";
 import { Category } from "../utils/types";
 
 interface ICategoryResponse  {
-    href: string,
-    limit: number,
-    next: string | null,
-    offset: number,
-    previous: string | null,
-    total: number,
-    items: Category[],
+    categories: {
+        href: string,
+        limit: number,
+        next: string | null,
+        offset: number,
+        previous: string | null,
+        total: number,
+        items: Category[],
+    }
 }
 
 const getCategories = async (startFrom:number = 0, limit:number = 20, country:string = 'HN') => {
@@ -25,7 +27,7 @@ const getCategories = async (startFrom:number = 0, limit:number = 20, country:st
             `/browse/categories?country=${country}&offset=${startFrom}&limit=${limit}`
         );
         
-        return categories.data; 
+        return categories.data.categories; 
     } catch (error) {
         console.log( error );
 
