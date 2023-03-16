@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { ITokenResponse } from "../../api";
+import { generateExpirationDate } from "../../helpers/generateExpirationDate";
 
 export type AuthState  = {
     status: 'VERIFIED' | 'ERROR' | 'CHECKING';
@@ -32,9 +33,7 @@ export const authSlice = createSlice({
             state.status = "VERIFIED";
             
             // set token expiration hour
-            const now = new Date();
-            now.setSeconds(now.getSeconds() + expires_in);
-            const dateString = now.toISOString();
+            const dateString = generateExpirationDate(expires_in);
 
             state.tokenExpiration = dateString; 
         },

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getToken } from "../api";
+import { generateExpirationDate } from '../helpers/generateExpirationDate';
 import { AppDispatch, RootState } from '../store';
 import { AuthState, setChecking, setError, setVerified } from '../store/slices';
 
@@ -11,16 +12,24 @@ export const useAuthStore = () => {
     const checkAuthToken = async () =>{
         try {
             dispatch( setChecking() );
-            const token = await getToken();
+            const tokenRes = await getToken();
 
-            dispatch(setVerified( token ));
+            dispatch(setVerified( tokenRes ));
+            
+            localStorage.setItem('TOKEN', JSON.stringify({
+                token: tokenRes.access_token,
+                expires_in: generateExpirationDate( tokenRes.expires_in ),
+            }))
+            
         } catch ( error ) {
+
             console.log(error);
             if(error instanceof Error) {
                 dispatch( setError({ msg: error.message  }) );
             }else{
                 dispatch( setError({ msg: 'Unknown error.' }) )
             }
+
         }
     }
 

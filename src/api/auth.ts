@@ -1,5 +1,8 @@
 
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
+
+import { authApi } from './api';
+
 import { getEnv } from '../helpers';
 
 export interface ITokenResponse {
@@ -7,10 +10,6 @@ export interface ITokenResponse {
     token_type: string,
     expires_in: number
 }
-
-const authApi = axios.create( {
-    baseURL: 'https://accounts.spotify.com/api',
-});
 
 export const getToken = async (): Promise<ITokenResponse> => {
     const { VITE_CLIENT_ID, VITE_CLIENT_SECRET } = getEnv();
