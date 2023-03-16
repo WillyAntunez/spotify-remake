@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { Track } from "../../interfaces/Track";
+import { Track } from "../../utils/types";
 
 type PlayerState  = {
     currentTrack: Track | null;
