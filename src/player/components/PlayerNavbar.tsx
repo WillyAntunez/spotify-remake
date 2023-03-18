@@ -1,8 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
+import {  NavLink, useLocation, } from 'react-router-dom';
 
-import {  NavLink, useLocation, useNavigate, } from 'react-router-dom';
-
-import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
+import { useHistoryNavigation, useOutsideAlerter } from '../../hooks';
 
 import {
     CloseXSvg,
@@ -16,8 +15,7 @@ import {
 
 import userPhoto from '../../assets/img/user-image.jpeg';
 import './PlayerNavbar.scss';
-import { useHistoryNavigation } from '../../hooks/useHistoryNavigation';
-
+// TODO: Make it responsive
 
 export const PlayerNavbar = () => {
 
@@ -65,8 +63,6 @@ export const PlayerNavbar = () => {
     }
     
     useOutsideAlerter( menuRef, onCloseMenu );
-
-    
 
     return (
         <header className='playernav' style={{ backgroundColor: navBackgroundRgba }}>
