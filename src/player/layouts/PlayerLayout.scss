@@ -16,9 +16,8 @@
     }
 
     &__view {
-        padding: 24px 16px 32px 16px;
         width: 100%;
-    height: calc(100% - 64px);
+        height: calc(100% - 64px);
         overflow: auto;
     }
 }

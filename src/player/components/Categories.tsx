@@ -3,6 +3,9 @@ import { getCategories } from '../../api'
 import { Category } from '../../utils/types'
 
 
+import './Categories.scss';
+import { CategoryCard } from './CategoryCard';
+
 export const Categories = () => {
 
   const [categories, setCategories] = useState<Category[]>([]);
@@ -15,17 +18,26 @@ export const Categories = () => {
       console.log(error);
     }
   }
-  
+
   useEffect(() => {
     setInitialCategories();
+
   }, [])
-  
-  // TODO: Categories cards with colors
-  // TODO: extract domain color of each category using 'color-thief'
 
   return (
-    <div>
-      Categories
+    <div className="categories">
+      <h2 className="categories__title">Explorar todo</h2>
+      <div className="categories__grid">
+        
+        {
+          categories.length > 0
+          ? categories.map( category => 
+              <CategoryCard category={category} key={category.id} />              
+            ) 
+          : null
+        }
+
+      </div>
     </div>
   )
 }

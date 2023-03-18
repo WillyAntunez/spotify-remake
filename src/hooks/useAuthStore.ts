@@ -10,6 +10,7 @@ export const useAuthStore = () => {
     const { status, error }:AuthState = useSelector((state : RootState) => state.auth);
 
     const checkAuthToken = async () =>{
+        // TODO: Si el token ya existe en localstorage y no se ha caducado, leerlo de ahí y no volverlo a solicitar
         try {
             dispatch( setChecking() );
             const tokenRes = await getToken();
