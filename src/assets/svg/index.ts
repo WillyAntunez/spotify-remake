@@ -33,9 +33,9 @@ export { default as TriangleBottomSvg } from './triangle-bottom.svg';
 export { default as TriangleUpSvg } from './triangle-up.svg';
 export { default as CloseXSvg } from './close-x.svg';
 
-export { default as facebookIconSvg } from './fb.svg';
-export { default as twitterIconSvg } from './twitter.svg';
-export { default as instagramIconSvg } from './instagram.svg';
+export { default as FacebookIconSvg } from './fb.svg';
+export { default as TwitterIconSvg } from './twitter.svg';
+export { default as InstagramIconSvg } from './instagram.svg';
 
 
 
