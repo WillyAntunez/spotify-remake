@@ -1,4 +1,4 @@
-import { Categories } from "../components/Categories"
+import { Categories } from "../components"
 
 export const Search = () => {
 

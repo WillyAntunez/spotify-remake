@@ -19,5 +19,16 @@
         width: 100%;
         height: calc(100% - 64px);
         overflow: auto;
+        padding: 16px;
     }
+}
+
+@media screen and (min-width: 1024px){
+
+    .player {
+        &__view {
+            padding: 16px 32px;
+        }
+    }
+
 }
