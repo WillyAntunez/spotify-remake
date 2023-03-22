@@ -112,17 +112,20 @@ export const PlayerViewFooter = () => {
 
                 <div className="playerfooter__social">
                     <NavLink to="https://www.instagram.com/spotify/"
-                        className='playerfooter__iconbutton'>
+                        className='playerfooter__iconbutton'
+                        target='_blank'>
                         <InstagramIconSvg />
                     </NavLink>
 
                     <NavLink to="https://twitter.com/spotify"
-                        className='playerfooter__iconbutton'>
+                        className='playerfooter__iconbutton'
+                        target='_blank'>
                         <TwitterIconSvg />
                     </NavLink>
 
                     <NavLink to="https://www.facebook.com/SpotifyLatino/"
-                        className='playerfooter__iconbutton'>
+                        className='playerfooter__iconbutton'
+                        target='_blank'>
                         <FacebookIconSvg />
                     </NavLink>
 
