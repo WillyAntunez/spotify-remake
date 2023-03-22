@@ -3,7 +3,6 @@
 .categories {
     margin-top: 32px;
     width: 100%;
-    padding: 16px;
     max-width: 2200px;
 
     &__title {
@@ -45,6 +44,8 @@
         font-weight: $font-weight-bold;
         position: absolute;
         line-height: 38.4px;
+        overflow-wrap: break-word;
+        max-width: 100%;
     }
     
 
@@ -77,13 +78,6 @@
         }
     }
 }
-
-@media screen and (min-width: 1024px){
-    .categories {
-        padding: 16px 32px;
-    }
-}
-
 
 @media screen and (min-width: 1304px){
     .categories {
