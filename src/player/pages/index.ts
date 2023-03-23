@@ -1,3 +1,4 @@
+export * from './NotImplemented';
 
 export * from './Search';
-export * from './NotImplemented';
+export * from './Genre';

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 
-import { PlayerLayout, Search, NotImplemented } from "../";
+import { PlayerLayout, Search, NotImplemented, Genre } from "../";
 
 export const PlayerRoutes = () => {
   return (
@@ -8,6 +8,7 @@ export const PlayerRoutes = () => {
       <PlayerLayout>
           <Routes>
               <Route path="/search" element={<Search />} />
+              <Route path="/genre/:id" element={ <Genre /> } />
               <Route path="/*" element={<NotImplemented />} />
           </Routes>
       </PlayerLayout>

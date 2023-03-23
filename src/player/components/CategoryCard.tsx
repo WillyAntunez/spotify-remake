@@ -1,5 +1,6 @@
 import { FastAverageColor } from 'fast-average-color';
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { Category } from '../../utils/types';
 
@@ -23,11 +24,11 @@ export const CategoryCard = ({ category }:props) => {
   }, [])
   
   return(
-    <a className="category" style={{ backgroundColor: bgColor }} >
+    <NavLink className="category" style={{ backgroundColor: bgColor }} to={`/genre/${category.id}`} >
       <div className='category__wrapper'>
         <img className="category__img" src={category.icons[0].url} alt={category.name} loading='lazy' />
         <span className="category__name"> {category.name} </span>
       </div>
-    </a>
+    </NavLink>
   )
 }
