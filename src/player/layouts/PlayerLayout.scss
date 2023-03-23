@@ -13,12 +13,13 @@
     &__container {
         height: 100%;
         overflow: hidden;
+        position: relative;
     }
-
+    
     &__view {
-        width: 100%;
-        height: calc(100% - 64px);
         overflow: auto;
+        width: 100%;
+        height: calc(100%);
         padding: 16px;
     }
 }

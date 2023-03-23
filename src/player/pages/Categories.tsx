@@ -4,7 +4,7 @@ import { Category } from '../../utils/types'
 
 
 import './Categories.scss';
-import { CategoryCard } from './CategoryCard';
+import { CategoryCard } from '../components/CategoryCard';
 
 export const Categories = () => {
 

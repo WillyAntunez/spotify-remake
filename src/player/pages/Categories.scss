@@ -1,9 +1,9 @@
 @import '../../utils/scss/globals';
 
 .categories {
-    margin-top: 32px;
     width: 100%;
     max-width: 2200px;
+    margin-top: calc($navbar-height + 32px);
 
     &__title {
         color: $white;
