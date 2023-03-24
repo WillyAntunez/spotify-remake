@@ -1,0 +1,13 @@
+@import '../../utils/scss/globals';
+
+.genre{
+    min-height: 100%;
+    max-height: 400px;
+    min-height: 250px;
+    
+    &__content {
+        height: 400px;
+        background-image: linear-gradient(rgba(0,0,0,.6) 0, --$background-base);
+        background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,.6)),to($background-base));
+    }
+}
