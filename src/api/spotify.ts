@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 
 import { Category, Playlist, Recommendations } from "../utils/types";
 
-interface IPagedResponse<T> {
+export interface IPagedResponse<T> {
     href: string,
     limit: number,
     next: string | null,
@@ -14,15 +14,24 @@ interface IPagedResponse<T> {
     items: T[],
 }
 
-interface ICategoryResponse  {
+export interface ICategoryResponse  {
     categories: IPagedResponse<Category>;
 }
 
-interface IPlaylistResponse {
+export interface IPlaylistResponse {
     playlists: IPagedResponse<Playlist>;
 }
 
-const getCategories = async (startFrom:number = 0, limit:number = 20, country:string = 'US') => {
+interface IRecomendedTracksQuery  {
+    // should
+    seed_genres?:string,
+    seed_artists?:string,
+    seed_tracks?:string,
+    limit?: number,
+    country?: string;
+}
+
+const getCategories = async (startFrom:number = 0, limit:number = 20, country:string = 'HN') => {
     try {
         if(limit > 50 || limit < 0 ){
             throw new Error('The limit should be a number between 0 and 50');
@@ -60,7 +69,7 @@ const getPlaylistsByCategory = async (
     category:string, 
     limit:number = 20, 
     offset:number = 0, 
-    country:string = 'US'
+    country:string = 'HN'
 ) => {
     try {
         if(limit > 50 || limit < 0 ){
@@ -80,21 +89,12 @@ const getPlaylistsByCategory = async (
     }
 }
 
-interface IRecomendedTracksQuery  {
-    // should
-    seed_genres?:string,
-    seed_artists?:string,
-    seed_tracks?:string,
-    limit?: number,
-    country?: string;
-}
-
 const getRecommendedTracks = async ({
     seed_genres,
     seed_artists,
     seed_tracks,
     limit = 10,
-    country = 'US'
+    country = 'HN'
 }:IRecomendedTracksQuery):Promise<Recommendations> => {
     try {
         if(limit > 50 || limit < 0 ){

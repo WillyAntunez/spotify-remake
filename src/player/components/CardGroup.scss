@@ -1,0 +1,133 @@
+@import '../../utils/scss/globals';
+
+@mixin show_only_n_childs ( $elements ) {
+    & > :nth-child(-n+ #{$elements + 1}) {
+        display: block;
+    }
+
+    & > :nth-child(n+ #{$elements + 1}) {
+        display: none;
+    }
+} 
+
+.cardgroup {
+    padding-top: 16px;
+    
+    &__top{
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 1rem;
+    }
+
+    &__title {
+        color: $white;
+    }
+
+    &__link {
+        color: $text-subdued;
+        font-weight: $font-weight-bold;
+        text-decoration: none;
+
+        &--title{
+            color: $white;
+        }
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+    &__cards{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: auto;
+        gap: 12px;
+
+        &--line {
+            @include show_only_n_childs(2);
+        }
+    }
+}
+
+@media screen and (min-width: 776px){
+    .cardgroup {
+        &__cards {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+
+            &--line{
+                @include show_only_n_childs( 3 );
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 976px){
+    .cardgroup {
+        &__cards {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            &--line{
+                @include show_only_n_childs( 4 );
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 1304px){
+    .cardgroup {
+        &__cards {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            &--line{
+                @include show_only_n_childs( 5 );
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1508px){
+    .cardgroup {
+        &__cards {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+
+            &--line{
+                @include show_only_n_childs( 6 );
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1712px){
+    .cardgroup {
+        &__cards {
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+
+            &--line{
+                @include show_only_n_childs( 7 );
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1916px){
+    .cardgroup {
+        &__cards {
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+            &--line{
+                @include show_only_n_childs( 8 );
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 2120px){
+    .cardgroup {
+        &__cards {
+            grid-template-columns: repeat(9, minmax(0, 1fr));
+            &--line{
+                @include show_only_n_childs( 9 );
+            }
+        }
+    }
+}
