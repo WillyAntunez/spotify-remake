@@ -5,7 +5,7 @@ const authApi = axios.create( {
 });
 
 const spotifyApi = axios.create({
-    baseURL: 'https://api.spotify.com/v1/',
+    baseURL: 'https://api.spotify.com/v1',
 });
 
 spotifyApi.interceptors.request.use( config => {
