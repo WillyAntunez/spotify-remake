@@ -15,7 +15,7 @@ export const PlayerLayout = ({ children }:Props) => {
         
         <div className='player__container'>
           <PlayerNavbar />
-          <div className="player__view">
+          <div className="player__view" id='playerView'>
             { children }
           </div>
         </div>

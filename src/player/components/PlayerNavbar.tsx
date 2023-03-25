@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import {  useRef, useState } from 'react';
 import {  NavLink, useLocation, } from 'react-router-dom';
 
 import { useHistoryNavigation, useOutsideAlerter } from '../../hooks';
@@ -15,12 +15,19 @@ import {
 
 import userPhoto from '../../assets/img/user-image.jpeg';
 import './PlayerNavbar.scss';
+import { useNavbarRgba } from '../hooks/useNavbarRgba';
+
 // TODO: Make it responsive
 
 export const PlayerNavbar = () => {
+    
+    const location = useLocation();
 
     const { nextPageExists, prevPageExists, navigateBackward, navigateForward } = useHistoryNavigation();
+    
+    const { navBackgroundRgba } = useNavbarRgba();
 
+    
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     const [inputText, setInputText] = useState<string>('');
 
@@ -28,15 +35,7 @@ export const PlayerNavbar = () => {
     const menuButtonRef = useRef<HTMLButtonElement>( null );
     const searchInputRef = useRef<HTMLInputElement>(null);
 
-    const location = useLocation();
-
     const userName: string = 'Willy Antunez';
-    const currentColor: number[] = [72, 32, 176];
-
-    const [currentRed, currentGreen, currentBlue] = currentColor;
-    const navOpacity = 0; // 0 to 100
-
-    const navBackgroundRgba = useMemo<string>(() => `rgba(${currentRed}, ${currentGreen}, ${currentBlue}, ${navOpacity}%)`, []);
 
     const onToggleMenu = ():void => {
         setMenuOpen( !menuOpen );
