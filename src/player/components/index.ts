@@ -5,3 +5,4 @@ export * from './PlayerHero';
 export * from './PlayerNavbar';
 export * from './PlayerViewFooter';
 export * from './PlaylistCard';
+export * from './NavbarPortal';

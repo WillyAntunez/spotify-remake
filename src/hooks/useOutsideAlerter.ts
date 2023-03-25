@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 export const useOutsideAlerter = (ref: React.RefObject<HTMLElement>, clickOutFunction: ( event: Event) => void ) => {
+  
   useEffect(() => {
     function handleClickOutside(event: Event) {
       const target = event.target as Node;

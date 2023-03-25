@@ -1,118 +1,79 @@
-import {  useRef, useState } from 'react';
-import {  NavLink, useLocation, } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { useHistoryNavigation, useOutsideAlerter } from '../../hooks';
+import { useNavbarRgba } from '../hooks';
 
 import {
-    CloseXSvg,
     ExternalSvg,
     NextPageSvg,
     PrevPageSvg,
-    SearchSvg,
     TriangleBottomSvg,
     TriangleUpSvg,
 } from '../../assets/svg';
-
 import userPhoto from '../../assets/img/user-image.jpeg';
+
 import './PlayerNavbar.scss';
-import { useNavbarRgba } from '../hooks/useNavbarRgba';
+
 
 // TODO: Make it responsive
 
 export const PlayerNavbar = () => {
-    
-    const location = useLocation();
 
     const { nextPageExists, prevPageExists, navigateBackward, navigateForward } = useHistoryNavigation();
-    
+
     const { navBackgroundRgba } = useNavbarRgba();
 
-    
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
-    const [inputText, setInputText] = useState<string>('');
 
-    const menuRef = useRef<HTMLDivElement>( null );
-    const menuButtonRef = useRef<HTMLButtonElement>( null );
-    const searchInputRef = useRef<HTMLInputElement>(null);
 
     const userName: string = 'Willy Antunez';
 
-    const onToggleMenu = ():void => {
-        setMenuOpen( !menuOpen );
+    // Handle menu
+    const menuRef = useRef<HTMLDivElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+    const onToggleMenu = (): void => {
+        setMenuOpen(!menuOpen);
     };
 
-    const onCloseMenu = (event?:Event):void => {
-        const target = event?.target as Node; 
-
-        if (menuButtonRef.current && !menuButtonRef.current.contains(target)){
+    const onCloseMenu = (event?: Event): void => {
+        const target = event?.target as Node;
+        if (menuButtonRef.current && !menuButtonRef.current.contains(target)) {
             setMenuOpen(false);
         }
     };
 
-    const onInputFocus = ():void => {
-        searchInputRef.current?.focus();
-    }
-    
-    const onInputChange = ({target}:React.ChangeEvent<HTMLInputElement>):void => {
-        setInputText(target.value);
-    }
-
-    const onClearInput = ():void => {
-        setInputText('');
-    }
-    
-    useOutsideAlerter( menuRef, onCloseMenu );
+    useOutsideAlerter(menuRef, onCloseMenu);
 
     return (
         <header className='playernav' style={{ backgroundColor: navBackgroundRgba }}>
 
             <div className='playernav__left'>
                 <div className="playernav__arrows">
-                    <button 
-                        className={`playernav__navbtn ${prevPageExists ? 'playernav__navbtn--active' : ''  }`}
-                        onClick={ navigateBackward }
-                        >
+                    <button
+                        className={`playernav__navbtn ${prevPageExists ? 'playernav__navbtn--active' : ''}`}
+                        onClick={navigateBackward}
+                    >
                         <PrevPageSvg />
                     </button>
-                    <button 
-                        className={`playernav__navbtn ${nextPageExists ? 'playernav__navbtn--active' : ''  }`}
-                        onClick={ navigateForward }
-                        >
+                    <button
+                        className={`playernav__navbtn ${nextPageExists ? 'playernav__navbtn--active' : ''}`}
+                        onClick={navigateForward}
+                    >
                         <NextPageSvg />
                     </button>
-                    <div className='playernav__context'>
-                        {
-                            location.pathname === '/search'
-                            ? (
-                                <div className="playernav__search" onClick={ onInputFocus }>
-                                    <SearchSvg className='playernav__search-icon' />
-                                    <input 
-                                        type="text" 
-                                        placeholder='¿Qué quieres escuchar?' 
-                                        className='playernav__search-input'
-                                        onChange={ onInputChange }
-                                        value={ inputText }
-                                        ref={ searchInputRef }
-                                        />
-                                    {
-                                        inputText.length > 0 
-                                        ? ( <CloseXSvg className='playernav__x-icon' onClick={ onClearInput } /> )
-                                        : null
-                                    }
-                                </div>
-                            )
-                            : null
-                        }
+                    <div className="playernav__context" id="navbarPortal">
                     </div>
                 </div>
             </div>
 
             <div className="playernav__right">
                 <div className="usermenu">
-                    <button 
-                        className={`usermenu__button ${ menuOpen ? 'usermenu__button--active' : '' }`}
-                        onClick={ onToggleMenu }
-                        ref={ menuButtonRef }
+                    <button
+                        className={`usermenu__button ${menuOpen ? 'usermenu__button--active' : ''}`}
+                        onClick={onToggleMenu}
+                        ref={menuButtonRef}
                     >
                         <div className="usermenu__photo">
                             <img src={userPhoto} alt={userName} />
@@ -120,16 +81,16 @@ export const PlayerNavbar = () => {
                         <span className='usermenu__name'>{userName}</span>
                         <div className='usermenu__icon'>
                             {
-                                menuOpen 
-                                ? ( <TriangleUpSvg /> )
-                                : ( <TriangleBottomSvg /> )
+                                menuOpen
+                                    ? (<TriangleUpSvg />)
+                                    : (<TriangleBottomSvg />)
                             }
                         </div>
                     </button>
                     {
                         menuOpen
                             ? (
-                                <div className='usermenu__menu' ref={ menuRef } onClick={ () => onCloseMenu() }>
+                                <div className='usermenu__menu' ref={menuRef} onClick={() => onCloseMenu()}>
                                     <ul className='usermenu__ul'>
                                         <li className='usermenu__item'>
                                             <NavLink to='#' target='_blank' className='usermenu__link'>
@@ -169,7 +130,6 @@ export const PlayerNavbar = () => {
                             )
                             : null
                     }
-
                 </div>
             </div>
 
