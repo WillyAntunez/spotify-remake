@@ -53,6 +53,10 @@ export interface SimplifiedPlaylist {
     name: string;
     /** The user who owns the playlist. */
     owner: PublicUser;
+    /** Primary color **/
+    primary_color: string | null;
+    /** The playlist's public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. **/
+    public: boolean | null;
     /** The version identifier for the current playlist. Can be supplied in other requests to target a specific playlist version */
     snapshot_id: string;
     /** A collection containing a link ( href ) to the Web API endpoint where full details of the playlist’s tracks can be retrieved, along with the total number of tracks in the playlist. */

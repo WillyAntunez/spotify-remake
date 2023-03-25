@@ -23,7 +23,6 @@ export interface IPlaylistResponse {
 }
 
 interface IRecomendedTracksQuery  {
-    // should
     seed_genres?:string,
     seed_artists?:string,
     seed_tracks?:string,
@@ -123,9 +122,23 @@ const getRecommendedTracks = async ({
     }
 }
 
+const getPlaylistById = async (id: string): Promise<Playlist> => {
+    try {
+        const response = await spotifyApi.get<Playlist>( `/playlists/${id}` );
+        return response.data;
+    } catch (error) {
+        if( error instanceof AxiosError ){
+            throw new Error(`Request error: ${error.message}`);
+        }else{
+            throw new Error(`Error desconocido: ${error}`)
+        }
+    }
+}
+
 export {
     getCategories,
     getCategoryById,
     getPlaylistsByCategory,
     getRecommendedTracks,
+    getPlaylistById,
 }
