@@ -2,21 +2,149 @@
 
 .playerhero {
     height: 30vh;
-
-    max-height: 400px;
-    min-height: 250px;
+    max-height: 500px;
+    min-height: 340px;
 
     width: 100%;
-    padding: 0 32px 24px 32px;
+    padding: 0 16px 24px 16px;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-start;
     background: linear-gradient($background-highlight 0,rgba(0,0,0,.5) 100%);
 
-    &__title{
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+
+    font-size: 0.8rem;
+    
+    &__cover {
+        width: 192px;
+        height: 192px;
+        flex-shrink: 0;
+        margin-right: 24px;
+        box-shadow: 0 4px 60px rgba(0,0,0,.5);
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    
+    &__type {
+        font-weight: $font-weight-bold;
         color: $white;
-        font-size: 6rem;
+    }
+    
+    &__title{
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
+        color: $white;
+        font-size: 27px;
         margin: 11px 0;
+    }
+
+    &__info {
+        margin-top: 8px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+        color: $white;
+        align-items: center;
+    }
+
+    &__description {
+        line-height: 1.6;
+        overflow: hidden;
+
+        a {
+            color: $white;
+            text-decoration: none;
+        }
+    }
+    
+    &__owner {
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        font-weight: $font-weight-bold;
+    }
+
+    &__ownerimage{
+        width: 24px;
+        height: 24px;
+
+        img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+    }
+
+    &__point {
+        font-weight: $font-weight-bold;
+    }
+
+}
+
+@media screen and (min-width: 979px) {
+    .playerhero {
+        &__title {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .playerhero {
+        padding: 0 32px 24px 32px;
+    }
+}
+
+@media screen and (min-width: 1254px) {
+    .playerhero {
+        &__title {
+            font-size: 3.8rem;
+        }
+    }
+}
+
+
+@media screen and (min-width: 1280px) {
+    .playerhero {
+        
+        &__cover {
+            width: 232px;
+            height: 232px;
+        }
+
+        &__title {
+            font-size: 2.5rem;
+        }
+
+    }
+}
+
+@media screen and (min-width: 1294px) {
+    .playerhero {
+        &__title {
+            font-size: 3.8rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1537px) {
+    .playerhero {
+        &__title {
+            font-size: 5rem;
+        }
     }
 }

@@ -78,8 +78,9 @@ export interface Playlist extends Omit<SimplifiedPlaylist, 'tracks'> {
     /** The playlist’s public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. */
     public: boolean | null;
     /** Information about the tracks of the playlist. Note, a track object may be null. This can happen if a track is no longer available. */
-    tracks: PlaylistTrack[];
+    tracks: Paging<PlaylistTrack>;
 }
+
 
 /**
  * The structure returned by the [/browse/featured-playlists] endpoint.
