@@ -16,11 +16,34 @@ interface IProps {
 }
 
 import parser from 'html-react-parser'
+import { usePlayerStore } from '../../hooks';
+import { useMemo } from 'react';
 
 export const PlayerHero = ({ imageUrl, name, type, description, owner, followers, count }: IProps) => {
 
+  const { currentColor } = usePlayerStore();
+
+  const gradient = useMemo<string>(() => {
+    const { red, green, blue } = currentColor;
+
+    if(red === 0 && green === 0 && blue === 0) {
+      return (
+        "linear-gradient(#181818 0,rgba(0,0,0,.5) 100%)"
+      )
+    }else{
+      return (`
+        linear-gradient(
+        rgba( ${red},${green},${blue},.8) 0%,
+        rgba( ${red},${green},${blue},.2) 100%)
+        ` 
+      )
+    }
+  }, [currentColor]);
+
   return (
-    <div className="playerhero">
+    <div className="playerhero"
+      style={ { background: gradient} }
+    >
         { imageUrl
           ? (
             <div className='playerhero__cover'>
