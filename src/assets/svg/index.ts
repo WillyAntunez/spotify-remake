@@ -37,5 +37,4 @@ export { default as FacebookIconSvg } from './fb.svg';
 export { default as TwitterIconSvg } from './twitter.svg';
 export { default as InstagramIconSvg } from './instagram.svg';
 
-
-
+export { default as EllipsisSvg } from './ellipsis.svg';

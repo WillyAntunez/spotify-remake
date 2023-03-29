@@ -14,6 +14,7 @@ import {
 import userPhoto from '../../assets/img/user-image.jpeg';
 
 import './PlayerNavbar.scss';
+import { useMenuHandler } from '../hooks/useMenuHandler';
 
 
 // TODO: Make it responsive
@@ -24,27 +25,10 @@ export const PlayerNavbar = () => {
 
     const { navBackgroundRgba } = useNavbarRgba();
 
-    const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
-
     const userName: string = 'Willy Antunez';
-
+    
     // Handle menu
-    const menuRef = useRef<HTMLDivElement>(null);
-    const menuButtonRef = useRef<HTMLButtonElement>(null);
-
-    const onToggleMenu = (): void => {
-        setMenuOpen(!menuOpen);
-    };
-
-    const onCloseMenu = (event?: Event): void => {
-        const target = event?.target as Node;
-        if (menuButtonRef.current && !menuButtonRef.current.contains(target)) {
-            setMenuOpen(false);
-        }
-    };
-
-    useOutsideAlerter(menuRef, onCloseMenu);
+    const { menuRef, menuButtonRef, menuOpen, onToggleMenu, onCloseMenu } = useMenuHandler();
 
     return (
         <header className='playernav' style={{ backgroundColor: navBackgroundRgba }}>
