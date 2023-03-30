@@ -5,8 +5,8 @@ import { getPlaylistById } from "../../api";
 import { hexToRgb } from "../../helpers/hexToRGB";
 import { usePlayerStore } from "../../hooks";
 import { Playlist as IPlaylist } from "../../utils/types";
-import { PlayerHero } from "../components"
-import { EllipsisSvg, ExternalSvg, HeartSvg, PlaySvg, UnLikedSvg } from "../../assets/svg";
+import { PlayerHero, PlayerViewFooter } from "../components"
+import { ClockSvg, EllipsisSvg, ExternalSvg, HeartSvg, PlaySvg, UnLikedSvg } from "../../assets/svg";
 
 import './Playlist.scss';
 import { useMenuHandler } from "../hooks";
@@ -136,10 +136,32 @@ export const Playlist = () => {
                                     : null
                             }
                         </div>
-
-
                     </div>
 
+                    <div className="playlist__table">
+                        <div className="tracktable">
+                            <div className="tracktable__head">
+                                <span className="tracktable__item">
+                                    #
+                                </span>
+                                <span className="tracktable__item">
+                                    Título
+                                </span>
+                                <span className="tracktable__item">
+                                    Álbum
+                                </span>
+                                <span className="tracktable__item">
+                                    Fecha en que se agrego
+                                </span>
+                                <span className="tracktable__item tracktable__item--centered">
+                                    <ClockSvg />
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <PlayerViewFooter />
                 </div>
             </div>
 

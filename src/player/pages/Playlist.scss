@@ -115,6 +115,7 @@
 
         text-align: start;
         white-space: pre;
+        text-overflow: ellipsis;
 
         svg {
             width: 16px;
@@ -127,13 +128,52 @@
         }
 
     }
-
 }
+
+.tracktable {
+
+    padding: 0 16px 0 16px;
+
+    &__head {
+        width: 100%;
+        padding: 0 16px 0 16px;
+
+        display: grid;
+        grid-template-columns: 16px 6fr 4fr  3fr minmax(120px,1fr);
+        justify-items: start;
+        grid-gap: 16px;
+
+        border-bottom: 1px solid $gray;
+        
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &__item{
+        text-overflow: hidden;
+        white-space: pre;
+        height: 36px;
+        font-size: 0.850rem;
+        display: flex;
+        align-items: center;
+
+        &--centered {
+            justify-self: center;
+        }
+    }
+}
+
 
 @media screen and (min-width: 1024px) {
     .playlist {
         &__options{
             padding: 24px 32px;
         }
+    }
+
+    .tracktable {
+        padding: 0 32px 0 32px;
     }
 }

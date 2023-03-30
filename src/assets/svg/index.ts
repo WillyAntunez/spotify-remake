@@ -38,3 +38,4 @@ export { default as TwitterIconSvg } from './twitter.svg';
 export { default as InstagramIconSvg } from './instagram.svg';
 
 export { default as EllipsisSvg } from './ellipsis.svg';
+export { default as ClockSvg } from './clock.svg';
