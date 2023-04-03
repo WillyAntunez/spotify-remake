@@ -1,17 +1,16 @@
-import { FastAverageColor } from "fast-average-color";
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom"
-import { getPlaylistById } from "../../api";
-import { hexToRgb } from "../../helpers/hexToRGB";
-import { usePlayerStore } from "../../hooks";
-import { Playlist as IPlaylist } from "../../utils/types";
-import { PlayerHero, PlayerViewFooter } from "../components"
-import { ClockSvg, EllipsisSvg, ExternalSvg, HeartSvg, PlaySvg, UnLikedSvg } from "../../assets/svg";
+import { FastAverageColor } from "fast-average-color";
 
-import './Playlist.scss';
+import { getPlaylistById } from "../../api";
+import { hexToRgb } from "../../helpers";
+import { usePlayerStore } from "../../hooks";
 import { useMenuHandler } from "../hooks";
-import { formatDate } from "../../helpers/formatDate";
-import { msToSeconds } from "../../helpers/msToSeconds";
+import { PlayerHero, PlayerViewFooter, TrackTable } from "../components"
+
+import { EllipsisSvg, ExternalSvg, PlaySvg, UnLikedSvg } from "../../assets/svg";
+import { Playlist as IPlaylist } from "../../utils/types";
+import './Playlist.scss';
 
 export const Playlist = () => {
 
@@ -20,8 +19,8 @@ export const Playlist = () => {
     const [playlist, setPlaylist] = useState<IPlaylist>();
 
     const { setCurrentColor } = usePlayerStore();
-
     const Fac = new FastAverageColor()
+
 
     const getDominantColor = async (url: string): Promise<void> => {
         const dominantColor = await Fac.getColorAsync(url);
@@ -141,80 +140,7 @@ export const Playlist = () => {
                     </div>
 
                     <div className="playlist__table">
-                        <div className="tracktable">
-                            <div className="tracktable__head">
-                                <div className="tracktable__row tracktable__row--head">
-                                    <span className="tracktable__item">
-                                        #
-                                    </span>
-                                    <span className="tracktable__item">
-                                        Título
-                                    </span>
-                                    <span className="tracktable__item">
-                                        Álbum
-                                    </span>
-                                    <span className="tracktable__item">
-                                        Fecha en que se agrego
-                                    </span>
-                                    <span className="tracktable__item tracktable__item--clock">
-                                        <ClockSvg />
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className="tracktable__body">
-                                {
-                                    playlist?.tracks.items.map((track, index) => 
-                                        <div className="tracktable__row tracktable__row--track" key={index}>
-                                            <div className="tracktable__item tracktable__item--number">
-                                                { index + 1 }
-                                            </div>
-                                            <button className="tracktable__item tracktable__item--play tracktable__iconbtn tracktable__iconbtn--play">
-                                                <PlaySvg />
-                                            </button>
-
-                                            <div className="tracktable__item">
-                                                <div className="tracktable__cover">
-                                                    <img src={track.track.album.images[0].url} alt={track.track.name} />
-                                                </div>
-                                                <div className="tracktable__titleandartist">
-                                                    <NavLink to='' className="tracktable__link tracktable__link--title">
-                                                        {track.track.name}
-                                                    </NavLink>
-                                                    <NavLink to='' className="tracktable__link">
-                                                        {track.track.artists.map(artist => artist.name).join(', ')}
-                                                    </NavLink>
-                                                </div>
-                                            </div>
-                                            <div className="tracktable__item">
-                                                <NavLink to="" className="tracktable__link">
-                                                    { track.track.album.name }
-                                                </NavLink>
-                                            </div>
-                                            <div className="tracktable__item">
-                                                { track.added_at ? formatDate( track.added_at ) : '' }
-                                            </div>
-                                            <div className="tracktable__item tracktable__item--last">
-                                                <div>
-                                                    <button className="tracktable__iconbtn tracktable__iconbtn--unliked">
-                                                        <UnLikedSvg />
-                                                    </button>
-                                                </div>
-                                                <span className="tracktable__time">
-                                                    { msToSeconds(track.track.duration_ms) }
-                                                </span>
-                                                <div>
-                                                    <button className="tracktable__iconbtn tracktable__iconbtn--ellipsis">
-                                                        <EllipsisSvg />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                }
-                            </div>
-
-                        </div>
+                        <TrackTable tracks={playlist?.tracks.items} />
                     </div>
                     
                     <PlayerViewFooter />

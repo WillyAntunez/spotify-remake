@@ -1,0 +1,149 @@
+@import '../../utils/scss/globals';
+
+.tracktable {
+
+    padding: 0 16px 0 16px;
+
+    container-type: inline-size;
+
+    &__head {
+        width: 100%;
+        justify-items: start;
+        grid-gap: 16px;
+        border-bottom: 1px solid $gray;
+        margin-bottom: 16px;
+        
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &__row {
+        display: grid;
+        grid-template-columns: 16px 6fr 4fr  3fr minmax(120px,1fr);
+        padding: 0 16px 0 16px;
+        gap: 16px;
+        height: 56px;
+        align-content: center;
+        border-radius: 5px;
+
+        &:hover{
+            background-color: $gray;
+
+            .tracktable {
+                &__item{
+                    &--number {
+                        display: none;
+                    }
+                }
+                
+                &__iconbtn {
+                    display: flex;
+                }
+            }
+        }
+
+        &--head {
+            height: 36px;
+            &:hover{
+                background-color: transparent;
+            }
+        }
+        
+    }
+
+    &__item{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        
+        font-size: 0.850rem;
+        align-items: center;
+        display: flex;
+
+        user-select: none;
+        
+        &--clock {
+            justify-self: end;
+            padding-right: 32px;
+        }
+
+        &--last {
+            display: grid;
+            grid-template-columns: 1fr min-content 32px;
+            justify-items: end;
+        }
+    }
+
+    &__iconbtn{
+        background: none;
+        border: none;
+        display: none;
+        color: inherit;
+        
+        svg{
+            fill: currentColor;
+            width: 16px;
+            height: 16px;
+        }
+        
+        &--play {
+            color: $white;
+            svg{
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        &--unliked {
+            margin-right: 16px;
+        }
+
+        &:hover{
+            color: $white;
+        }
+    }
+
+    &__link {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1.6;
+
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+        text-decoration: none;
+    
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &--title{
+            color: $white;
+        }
+    }
+
+    &__cover {
+        width: 40px;
+        height: 40px;
+        margin-right: 16px;
+        img{
+            height: 100%;
+        }
+    }
+
+    &__titleandartist{
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    .tracktable {
+        padding: 0 32px 0 32px;
+    }
+}
