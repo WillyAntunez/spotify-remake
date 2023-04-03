@@ -28,7 +28,7 @@
         align-content: center;
         border-radius: 5px;
 
-        &:hover{
+        &:hover, &--selected{
             background-color: $gray;
 
             .tracktable {
@@ -51,6 +51,17 @@
             }
         }
         
+        &--selected {
+            background-color: hsla(0,0%,100%,.3);
+            
+            .tracktable__link{
+                color: $white;
+            }
+
+            &:hover {
+                background-color: hsla(0,0%,100%,.3);
+            }
+        }
     }
 
     &__item{
@@ -74,6 +85,7 @@
             grid-template-columns: 1fr min-content 32px;
             justify-items: end;
         }
+
     }
 
     &__iconbtn{
@@ -98,6 +110,10 @@
 
         &--unliked {
             margin-right: 16px;
+        }
+
+        &--ellipsis {
+            color: $white;
         }
 
         &:hover{

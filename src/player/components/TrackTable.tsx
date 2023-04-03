@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { formatDate, msToSeconds } from "../../helpers";
@@ -7,6 +8,7 @@ import { PlaylistTrack } from "../../utils/types";
 import { ClockSvg, EllipsisSvg, PlaySvg, UnLikedSvg } from "../../assets/svg";
 
 import './TrackTable.scss';
+import { useOutsideAlerter } from "../../hooks";
 
 interface IProps {
     tracks?: PlaylistTrack[];
@@ -14,8 +16,20 @@ interface IProps {
 
 export const TrackTable = ({tracks = []}:IProps) => {
 
+    const [selected, setSelected] = useState<number | null>(null);
+    
+    const trackTableRef = useRef(null)
+
+    useOutsideAlerter(trackTableRef, () => {
+        setSelected(null);
+    });
+
+    const selectTrack = (index:number):void => {
+        setSelected( index );
+    }
+
     return (
-        <div className="tracktable">
+        <div className="tracktable" ref={ trackTableRef }>
             <div className="tracktable__head">
                 <div className="tracktable__row tracktable__row--head">
                     <span className="tracktable__item">
@@ -39,8 +53,12 @@ export const TrackTable = ({tracks = []}:IProps) => {
             <div className="tracktable__body">
                 {
                     tracks.map((track, index) =>
-                        <div className="tracktable__row tracktable__row--track" key={index}>
-                            <div className="tracktable__item tracktable__item--number">
+                        <div 
+                            className={`tracktable__row tracktable__row--track ${selected === index ? 'tracktable__row--selected' : ''}`}
+                            key={index} 
+                            onClick={ () => selectTrack( index ) }>
+                            <div className="tracktable__item tracktable__item--number"
+                        >
                                 {index + 1}
                             </div>
                             <button className="tracktable__item tracktable__item--play tracktable__iconbtn tracktable__iconbtn--play">
@@ -49,7 +67,7 @@ export const TrackTable = ({tracks = []}:IProps) => {
 
                             <div className="tracktable__item">
                                 <div className="tracktable__cover">
-                                    <img src={track.track.album.images[0].url} alt={track.track.name} />
+                                    <img src={track.track.album.images[0].url} alt={track.track.name} loading="lazy" />
                                 </div>
                                 <div className="tracktable__titleandartist">
                                     <NavLink to='' className="tracktable__link tracktable__link--title">
