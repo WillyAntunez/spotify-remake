@@ -28,7 +28,7 @@ export interface PlaylistTrack {
     /** Whether this track or episode is a local file or not. */
     is_local: boolean;
     /** Information about the track or episode. */
-    track: Track | Episode | null;
+    track: Track;
 }
 
 /**

@@ -18,20 +18,11 @@ import {
   RepeatOneSvg,
   PauseSvg,
 } from '../../assets/svg';
+import { msToSeconds } from '../../helpers/msToSeconds';
 
 import './PlayerControls.scss';
 
 
-const formatMs = (milliseconds: number):string => {
-  let minutes:number = Math.floor(milliseconds / 60000);
-  let seconds:number | string = Math.floor((milliseconds % 60000) / 1000);
-
-  if (seconds < 10) {
-    seconds = "0" + seconds;
-  }
-
-  return minutes + ":" + seconds;
-};
 
 
 export const PlayerControls = () => {
@@ -62,8 +53,8 @@ export const PlayerControls = () => {
   const { isPlaying, isQueueOpen, areLyricsOpen, isMuted, isRandomActived, repeatMode, timeLapsed, totalTime, volume } = playerBarInfo;
 
 
-  const lapsedTimeFormated:string = useMemo<string>( () => formatMs(timeLapsed), [ timeLapsed ]); 
-  const totalTimeFormated:string = useMemo<string>( () => formatMs(totalTime), [ timeLapsed ]); 
+  const lapsedTimeFormated:string = useMemo<string>( () => msToSeconds(timeLapsed), [ timeLapsed ]); 
+  const totalTimeFormated:string = useMemo<string>( () => msToSeconds(totalTime), [ timeLapsed ]); 
   const lapsedTimePercent:number = useMemo<number>( () =>  (timeLapsed / totalTime) * 100, [timeLapsed, totalTime]);
 
   return (
