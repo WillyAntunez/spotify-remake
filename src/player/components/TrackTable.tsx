@@ -2,34 +2,40 @@ import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { formatDate, msToSeconds } from "../../helpers";
+import { useOutsideAlerter, usePlayerStore } from "../../hooks";
 
-import { PlaylistTrack } from "../../utils/types";
+import { PlaylistTrack, Track } from "../../utils/types";
 
 import { ClockSvg, EllipsisSvg, PlaySvg, UnLikedSvg } from "../../assets/svg";
-
 import './TrackTable.scss';
-import { useOutsideAlerter } from "../../hooks";
 
 interface IProps {
     tracks?: PlaylistTrack[];
 }
 
-export const TrackTable = ({tracks = []}:IProps) => {
+export const TrackTable = ({ tracks = [] }: IProps) => {
 
     const [selected, setSelected] = useState<number | null>(null);
-    
-    const trackTableRef = useRef(null)
+    const trackTableRef = useRef(null);
+
+    const { setQueue } = usePlayerStore();
 
     useOutsideAlerter(trackTableRef, () => {
         setSelected(null);
     });
 
-    const selectTrack = (index:number):void => {
-        setSelected( index );
-    }
+    const selectTrack = (index: number): void => {
+        setSelected(index);
+    };
+
+    const playTrack = (index:number) => {
+        if(tracks[index].track.preview_url){
+            setQueue( tracks.map(track => track.track),  index);
+        }
+    };
 
     return (
-        <div className="tracktable" ref={ trackTableRef }>
+        <div className="tracktable" ref={trackTableRef}>
             <div className="tracktable__head">
                 <div className="tracktable__row tracktable__row--head">
                     <span className="tracktable__item">
@@ -53,12 +59,14 @@ export const TrackTable = ({tracks = []}:IProps) => {
             <div className="tracktable__body">
                 {
                     tracks.map((track, index) =>
-                        <div 
+                        <div
                             className={`tracktable__row tracktable__row--track ${selected === index ? 'tracktable__row--selected' : ''}`}
-                            key={index} 
-                            onClick={ () => selectTrack( index ) }>
-                            <div className="tracktable__item tracktable__item--number"
+                            key={index}
+                            onClick={() => selectTrack(index)}
+                            onDoubleClick={() => playTrack(index)}
                         >
+                            <div className="tracktable__item tracktable__item--number"
+                            >
                                 {index + 1}
                             </div>
                             <button className="tracktable__item tracktable__item--play tracktable__iconbtn tracktable__iconbtn--play">

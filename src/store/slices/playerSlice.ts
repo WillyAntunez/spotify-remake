@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Track } from "../../utils/types";
+import { Playlist, Track } from "../../utils/types";
 
 export interface IRgbColor {
     red: Number;
@@ -10,15 +10,15 @@ export interface IRgbColor {
 
 export type PlayerState  = {
     currentTrack: Track | null;
-    currentPlayList: Track[] ;
-    playerMode: 'PREVIEW';
+    currentTrackIndex: number | null;
+    currentQueue: Track[] ;
     currentColor: IRgbColor;
 }
 
 const initialState: PlayerState = {
     currentTrack: null,
-    currentPlayList: [],
-    playerMode: 'PREVIEW',
+    currentTrackIndex: null,
+    currentQueue: [],
     currentColor: {
         red: 0,
         green: 0,
@@ -26,19 +26,35 @@ const initialState: PlayerState = {
     },
 }
 
+interface ISetQueueObject {
+    tracks: Track[];
+    initialIndex?: number;
+}
+
 const playerSlice = createSlice({
     name: 'player',
     initialState,
     reducers: {
-        setPlayerColor(state, { payload }:PayloadAction<IRgbColor>) {
+        setPlayerColor(state, { payload }:PayloadAction<IRgbColor>):void {
             state.currentColor = payload;
+        },
+        setPlayerQueue( state, { payload }:PayloadAction<ISetQueueObject> ):void {
+            const { tracks, initialIndex = 0 } = payload;
+
+            if( tracks.length > 0 ){
+                state.currentQueue = tracks;
+                state.currentTrackIndex = initialIndex;
+            }
+            
+            state.currentTrack = tracks[initialIndex]; 
         },
     },
 });
 
-const { setPlayerColor } = playerSlice.actions;
+const { setPlayerColor, setPlayerQueue } = playerSlice.actions;
 
 export {
     playerSlice,
     setPlayerColor,
+    setPlayerQueue,
 }
