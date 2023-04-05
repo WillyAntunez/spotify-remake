@@ -1,6 +1,6 @@
 
 // SVG imported as React Components
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   LikedSvg,
   UnLikedSvg,
@@ -21,6 +21,7 @@ import {
 import { msToSeconds } from '../../helpers/msToSeconds';
 
 import './PlayerControls.scss';
+import { usePlayerStore } from '../../hooks';
 
 
 
@@ -37,6 +38,7 @@ export const PlayerControls = () => {
     artist: 'Harmless',
     liked: true,
   }
+
   const playerBarInfo = {
     timeLapsed: 10000,
     totalTime: 60000,
@@ -52,6 +54,7 @@ export const PlayerControls = () => {
   const { album, name, artist, liked } = song;
   const { isPlaying, isQueueOpen, areLyricsOpen, isMuted, isRandomActived, repeatMode, timeLapsed, totalTime, volume } = playerBarInfo;
 
+  const { currentTrack } = usePlayerStore();
 
   const lapsedTimeFormated:string = useMemo<string>( () => msToSeconds(timeLapsed), [ timeLapsed ]); 
   const totalTimeFormated:string = useMemo<string>( () => msToSeconds(totalTime), [ timeLapsed ]); 
@@ -59,7 +62,7 @@ export const PlayerControls = () => {
 
   return (
     <div className="playercontrols__container">
-      <div className='playercontrols'>
+      <div className={`playercontrols ${currentTrack === null ? 'playercontrols__nosong' : ''}`}>
 
         {/* LEFT SIDE */}
         <div className="playercontrols__left">
@@ -88,15 +91,24 @@ export const PlayerControls = () => {
         {/* CENTER */}
         <div className="playercontrols__center">
               <div className='playercontrols__song-buttons'>
-                <button className={`playercontrols__icon ${ isRandomActived ? 'playercontrols__icon--active': '' } `}>
+                <button 
+                  className={`playercontrols__icon ${ isRandomActived && currentTrack ? 'playercontrols__icon--active': '' } `}
+                  disabled={!currentTrack}
+                  >
                     <RandomSvg />
                 </button>
 
-                <button className='playercontrols__icon  '>
+                <button 
+                  className='playercontrols__icon  '
+                  disabled={!currentTrack}
+                >
                     <PrevSvg />
                 </button>
                 
-                <button className='playercontrols__icon playercontrols__icon--playpause '>
+                <button 
+                  className='playercontrols__icon playercontrols__icon--playpause '
+                  disabled={!currentTrack}
+                  >
                   {
                     isPlaying 
                       ? ( <PauseSvg /> )
@@ -104,11 +116,17 @@ export const PlayerControls = () => {
                   }
                 </button>
                 
-                <button className='playercontrols__icon  '>
+                <button 
+                  className='playercontrols__icon  '
+                  disabled={!currentTrack}
+                  >
                     <NextSvg />
                 </button>
 
-                <button className={`playercontrols__icon ${ repeatMode !== 'DISABLED' ? 'playercontrols__icon--active': '' } `}>
+                <button 
+                  className={`playercontrols__icon ${ repeatMode !== 'DISABLED' && currentTrack ? 'playercontrols__icon--active': '' } `}
+                  disabled={!currentTrack}
+                  >
                     {
                       repeatMode !== 'ONE'
                         ? ( <RepeatDisabledSvg /> )
@@ -124,7 +142,7 @@ export const PlayerControls = () => {
 
                 <div className="progress-bar__container">
                   <div className='progress-bar'>
-                      <div className='progress-bar__bar' style={{width: `${lapsedTimePercent}%`}}>
+                      <div className='progress-bar__bar progress-bar__bar--song' style={{width: `${lapsedTimePercent}%`}}>
                         <div className="progress-bar__controller">
                         </div>
                       </div>
@@ -140,13 +158,16 @@ export const PlayerControls = () => {
         {/* RIGHT */}
         <div className="playercontrols__right">
           <button 
-            className={`playercontrols__icon playercontrols__icon--expand ${ areLyricsOpen ? 'playercontrols__icon--active': '' }`}
+            className={`
+              playercontrols__icon playercontrols__icon--microphone playercontrols__icon--expand 
+              ${ areLyricsOpen && currentTrack ? 'playercontrols__icon--active': '' }
+              `}
             >
               <MicrophoneSvg />
           </button>
 
           <button 
-            className={`playercontrols__icon  playercontrols__icon--expand ${ isQueueOpen ? 'playercontrols__icon--active': ''  }`}
+            className={`playercontrols__icon  playercontrols__icon--expand ${ isQueueOpen && currentTrack ? 'playercontrols__icon--active': ''  }`}
             >
               <PlaylistSvg />
           </button>
