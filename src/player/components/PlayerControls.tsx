@@ -1,6 +1,6 @@
 
 // SVG imported as React Components
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   LikedSvg,
   UnLikedSvg,
@@ -30,12 +30,6 @@ export const PlayerControls = () => {
 
   // example objects
   const song =  {
-    album: {
-      imageUrl: 'https://i.scdn.co/image/ab67616d000048511bd6d088d3d81972af4cb81d',
-      name: 'album-name',
-    },
-    name: 'Cool kids',
-    artist: 'Harmless',
     liked: true,
   }
 
@@ -51,14 +45,56 @@ export const PlayerControls = () => {
     volume: 37,
   }
 
-  const { album, name, artist, liked } = song;
-  const { isPlaying, isQueueOpen, areLyricsOpen, isMuted, isRandomActived, repeatMode, timeLapsed, totalTime, volume } = playerBarInfo;
+  const { liked } = song;
+  const { isQueueOpen, areLyricsOpen, isMuted, isRandomActived, repeatMode, timeLapsed, totalTime, volume } = playerBarInfo;
 
-  const { currentTrack } = usePlayerStore();
-
+  
   const lapsedTimeFormated:string = useMemo<string>( () => msToSeconds(timeLapsed), [ timeLapsed ]); 
   const totalTimeFormated:string = useMemo<string>( () => msToSeconds(totalTime), [ timeLapsed ]); 
   const lapsedTimePercent:number = useMemo<number>( () =>  (timeLapsed / totalTime) * 100, [timeLapsed, totalTime]);
+  
+  const { currentTrack } = usePlayerStore();
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const audio = useRef<HTMLAudioElement>();
+  
+  const playAudio = () => {
+    if(currentTrack && audio.current){
+      audio.current.play();
+      setIsPlaying(true);
+    }
+  }
+
+  const pauseAudio = () => {
+    if(currentTrack && audio.current){
+      audio.current.pause();
+      setIsPlaying(false);
+    }
+  }
+
+  const togglePlay = () => {
+    if(currentTrack && audio.current){
+      isPlaying ? pauseAudio() : playAudio();
+    }
+  }
+
+  const resetAudio = () => {
+    if(currentTrack && audio.current){
+      audio.current.currentTime = 0;
+    }
+  } 
+
+  useEffect(() => {
+    if(currentTrack && currentTrack.preview_url) {
+      pauseAudio();
+      resetAudio();
+
+      const newAudio = new Audio(currentTrack.preview_url)
+      audio.current = newAudio;
+
+      playAudio();
+    }
+  }, [currentTrack])
+  
 
   return (
     <div className="playercontrols__container">
@@ -67,16 +103,16 @@ export const PlayerControls = () => {
         {/* LEFT SIDE */}
         <div className="playercontrols__left">
             <div className="playercontrols__img">
-              <img src={ album.imageUrl } alt={ album.name } />
+              <img src={ currentTrack?.album.images[0].url || '' } alt={ currentTrack?.album.name || '' } />
             </div>
             <div className='flex flex--column playercontrols__song-info'>
               <a className='text text--white hover--underline hover--white cursor-pointer' 
                 href='#'>
-                  { name }
+                  { currentTrack?.name }
               </a>
               <a className='text text--small hover--underline hover--white cursor-pointer' 
                 href='#'>
-                  { artist }
+                  { currentTrack?.artists.map(artist => artist.name).join(', ') }
               </a>
             </div>
             <button className={`playercontrols__icon ${liked ? 'playercontrols__icon--liked': ''}`}>
@@ -108,6 +144,7 @@ export const PlayerControls = () => {
                 <button 
                   className='playercontrols__icon playercontrols__icon--playpause '
                   disabled={!currentTrack}
+                  onClick={togglePlay}
                   >
                   {
                     isPlaying 
